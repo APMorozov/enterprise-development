@@ -18,7 +18,7 @@ public class ProductCategory
     /// <summary>
     /// Рекомендуемый тип чистки
     /// </summary>
-    public string RecomendedCleaningType { get; set; } = string.Empty;
+    public string RecommendedCleaningType { get; set; } = string.Empty;
 
     /// <summary>
     /// Цена чистки
