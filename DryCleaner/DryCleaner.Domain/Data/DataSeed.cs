@@ -3,6 +3,9 @@ using DryCleaner.Domain.Enums;
 
 namespace DryCleaner.Domain.Data;
 
+/// <summary>
+/// Набор тестовых данных 
+/// </summary>
 public static class DataSeed
 {
     public static List<ProductCategory> Categories { get; } = new()

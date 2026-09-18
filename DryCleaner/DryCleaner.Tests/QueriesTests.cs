@@ -1,9 +1,12 @@
-﻿using DryCleaner.Domain.Data;
-using DryCleaner.Domain.Entities;
+﻿using DryCleaner.Domain.Entities;
 using DryCleaner.Domain.Enums;
 
 namespace DryCleaner.Tests;
 
+/// <summary>
+/// Тесты запросов к данным сервиса
+/// </summary>
+/// <param name="fixture">Тестовый набор данных</param>
 public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTestsFixture>
 {
     /// <summary>

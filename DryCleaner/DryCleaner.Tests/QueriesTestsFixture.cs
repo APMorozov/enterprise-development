@@ -3,6 +3,9 @@ using DryCleaner.Domain.Entities;
 
 namespace DryCleaner.Tests;
 
+/// <summary>
+/// Подготовленные данные дял тестов
+/// </summary>
 public class QueriesTestsFixture
 {
     /// <summary>
