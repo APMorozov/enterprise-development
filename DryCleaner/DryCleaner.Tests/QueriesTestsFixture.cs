@@ -1,6 +1,5 @@
 ﻿using DryCleaner.Domain.Data;
 using DryCleaner.Domain.Entities;
-using DryCleaner.Domain.Enums;
 
 namespace DryCleaner.Tests;
 
@@ -20,7 +19,7 @@ public class QueriesTestsFixture
     /// Список изделий
     /// </summary>
     public IReadOnlyList<Product> Products { get; } = DataSeed.Products;
-    
+
     /// <summary>
     /// Список заказов
     /// </summary>
