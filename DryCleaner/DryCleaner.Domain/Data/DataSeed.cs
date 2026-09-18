@@ -1,7 +1,7 @@
 using DryCleaner.Domain.Entities;
 using DryCleaner.Domain.Enums;
 
-namespace DryCleaner.Tests.Data;
+namespace DryCleaner.Domain.Data;
 
 public static class DataSeed
 {
