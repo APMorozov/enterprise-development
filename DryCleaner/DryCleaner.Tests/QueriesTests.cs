@@ -10,33 +10,12 @@ namespace DryCleaner.Tests;
 public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTestsFixture>
 {
     /// <summary>
-    /// Списик категорий изделия
-    /// </summary>
-    private readonly List<ProductCategory> _categories = fixture.Categories.ToList();
-
-    /// <summary>
-    /// Список клиентов
-    /// </summary>
-    private readonly List<Client> _clients = fixture.Clients.ToList();
-
-    /// <summary>
-    /// Список изделий
-    /// </summary>
-    private readonly List<Product> _products = fixture.Products.ToList();
-
-    /// <summary>
-    /// Список заказов
-    /// </summary>
-    private readonly List<Order> _orders = fixture.Orders.ToList();
-
-
-    /// <summary>
     /// Проверяет информацию полученную о заказах, находящихся в обработке, упорядоченных по дате приема
     /// </summary>
     [Fact]
     public void InProgressOrdersInfoOrderedByAcceptedAt()
     {
-        var orders = _orders;
+        var orders = fixture.Orders.ToList();
 
         var result = orders
             .Where(order => order.Status == OrderStatus.InProgress)
@@ -67,7 +46,7 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
         var dateFrom = new DateTime(2025, 1, 1);
         var dateTo = new DateTime(2026, 12, 31);
 
-        var orders = _orders;
+        var orders = fixture.Orders.ToList();
 
         var result = orders
             .Where(order =>
@@ -104,7 +83,7 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
     [Fact]
     public void ClientsWithLongestProcessingOrdersOrderedByName()
     {
-        var orders = _orders;
+        var orders = fixture.Orders.ToList();
 
         var result = orders
             .GroupBy(order => order.Client)
@@ -138,7 +117,7 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
         var dateTo = new DateTime(2026, 9, 18);
         var dateFrom = dateTo.AddYears(-1);
 
-        var orders = _orders;
+        var orders = fixture.Orders.ToList();
 
         var categories = orders
             .Where(order =>
@@ -187,7 +166,7 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
     [Fact]
     public void ClientWhoSpentTheMostMoney()
     {
-        var orders = _orders;
+        var orders = fixture.Orders.ToList();
 
         var result = orders
             .GroupBy(order => order.Client)
