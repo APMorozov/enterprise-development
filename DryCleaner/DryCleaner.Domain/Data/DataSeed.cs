@@ -204,7 +204,7 @@ public static class DataSeed
         new Order
         {
             Id = 3,
-            Client = Clients[0],
+            Client = Clients[1],
             Product = Products[2],
             AcceptedAt = new DateTime(2025, 6, 10),
             ProcessingDays = 3,
@@ -214,7 +214,7 @@ public static class DataSeed
         new Order
         {
             Id = 4,
-            Client = Clients[0],
+            Client = Clients[1],
             Product = Products[3],
             AcceptedAt = new DateTime(2025, 7, 25),
             ProcessingDays = 10,
@@ -224,7 +224,7 @@ public static class DataSeed
         new Order
         {
             Id = 5,
-            Client = Clients[1],
+            Client = Clients[2],
             Product = Products[4],
             AcceptedAt = new DateTime(2025, 8, 10),
             ProcessingDays = 6,
@@ -234,7 +234,7 @@ public static class DataSeed
         new Order
         {
             Id = 6,
-            Client = Clients[1],
+            Client = Clients[2],
             Product = Products[5],
             AcceptedAt = new DateTime(2025, 9, 10),
             ProcessingDays = 8,
@@ -244,7 +244,7 @@ public static class DataSeed
         new Order
         {
             Id = 7,
-            Client = Clients[2],
+            Client = Clients[3],
             Product = Products[6],
             AcceptedAt = new DateTime(2025, 10, 10),
             ProcessingDays = 15,
@@ -274,7 +274,7 @@ public static class DataSeed
         new Order
         {
             Id = 10,
-            Client = Clients[5],
+            Client = Clients[4],
             Product = Products[9],
             AcceptedAt = new DateTime(2026, 5, 10),
             ProcessingDays = 12,
