@@ -8,8 +8,8 @@ namespace DryCleaner.Domain.Data;
 /// </summary>
 public static class DataSeed
 {
-    public static List<ProductCategory> Categories { get; } = new()
-    {
+    public static List<ProductCategory> Categories { get; } =
+    [
         new ProductCategory
         {
             Id = 1,
@@ -80,10 +80,10 @@ public static class DataSeed
             RecommendedCleaningType = "Специальная чистка",
             CleaningPrice = 900m
         }
-    };
+    ];
 
-    public static List<Client> Clients { get; } = new()
-    {
+    public static List<Client> Clients { get; } =
+    [
         new Client { Id = 1, Name = "Иванов Иван Иванович", Phone = "+79990000001" },
         new Client { Id = 2, Name = "Петров Петр Петрович", Phone = "+79990000002" },
         new Client { Id = 3, Name = "Сидорова Анна Сергеевна", Phone = "+79990000003" },
@@ -104,10 +104,10 @@ public static class DataSeed
         new Client { Id = 18, Name = "Тарасов Роман Евгеньевич", Phone = "+79990000018" },
         new Client { Id = 19, Name = "Жукова Дарья Андреевна", Phone = "+79990000019" },
         new Client { Id = 20, Name = "Орлов Михаил Сергеевич", Phone = "+79990000020" }
-    };
+    ];
 
-    public static List<Product> Products { get; } = new()
-    {
+    public static List<Product> Products { get; } =
+    [
         new Product { Id = 1, Name = "Пальто классическое", Material = "Шерсть", Category = Categories[5] },
         new Product { Id = 2, Name = "Куртка зимняя", Material = "Полиэстер", Category = Categories[6] },
         new Product { Id = 3, Name = "Костюм мужской", Material = "Шерсть", Category = Categories[1] },
@@ -138,10 +138,10 @@ public static class DataSeed
         new Product { Id = 28, Name = "Пальто осеннее", Material = "Шерсть", Category = Categories[5] },
         new Product { Id = 29, Name = "Куртка спортивная", Material = "Полиэстер", Category = Categories[6] },
         new Product { Id = 30, Name = "Костюм классический", Material = "Шерсть", Category = Categories[1] }
-    };
+    ];
 
-    public static List<Order> Orders { get; } = new()
-    {
+    public static List<Order> Orders { get; } =
+    [
         // Иванов — 8 заказов
         new Order { Id = 1, Client = Clients[0], Product = Products[0], AcceptedAt = new DateTime(2025, 1, 15), ProcessingDays = 5, Status = OrderStatus.Issued },
         new Order { Id = 2, Client = Clients[0], Product = Products[3], AcceptedAt = new DateTime(2025, 3, 10), ProcessingDays = 7, Status = OrderStatus.Issued },
@@ -221,5 +221,5 @@ public static class DataSeed
 
         // Голубева — 1 заказ
         new Order { Id = 50, Client = Clients[14], Product = Products[22], AcceptedAt = new DateTime(2026, 7, 20), ProcessingDays = 9, Status = OrderStatus.InProgress }
-    };
+    ];
 }
