@@ -1,5 +1,4 @@
-﻿using DryCleaner.Domain.Entities;
-using DryCleaner.Domain.Enums;
+﻿using DryCleaner.Domain.Enums;
 
 namespace DryCleaner.Tests;
 
@@ -16,25 +15,16 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
     public void InProgressOrdersInfoOrderedByAcceptedAt()
     {
         var orders = fixture.Orders.ToList();
+        var expectedIds = new[] { 4, 8, 10 };
 
         var result = orders
             .Where(order => order.Status == OrderStatus.InProgress)
             .OrderBy(order => order.AcceptedAt)
             .ToList();
 
-        Assert.NotEmpty(result);
-
-        Assert.All(
-            result,
-            order => Assert.Equal(
-                OrderStatus.InProgress,
-                order.Status));
-
-        for (var i = 1; i < result.Count; ++i)
-        {
-            Assert.True(
-                result[i - 1].AcceptedAt <= result[i].AcceptedAt);
-        }
+        Assert.Equal(
+        expectedIds,
+        result.Select(order => order.Id));
     }
 
     /// <summary>
@@ -47,6 +37,14 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
         var dateTo = new DateTime(2026, 12, 31);
 
         var orders = fixture.Orders.ToList();
+        var expected = new[]
+        {
+            new { Name = "Иванов Иван Иванович", Count = 2 },
+            new { Name = "Петров Петр Петрович", Count = 2 },
+            new { Name = "Сидорова Анна Сергеевна", Count = 2 },
+            new { Name = "Кузнецов Алексей Владимирович", Count = 2 },
+            new { Name = "Смирнова Елена Андреевна", Count = 2 }
+        };
 
         var result = orders
             .Where(order =>
@@ -62,18 +60,13 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .Take(5)
             .ToList();
 
-        Assert.Equal(5, result.Count());
+        Assert.Equal(
+        expected.Select(x => x.Name),
+        result.Select(x => x.Client.Name));
 
-        Assert.All(
-        result,
-        item => Assert.NotNull(item.Client));
-
-        for (var i = 1; i < result.Count; i++)
-        {
-            Assert.True(
-                result[i - 1].ProductsCount >=
-                result[i].ProductsCount);
-        }
+        Assert.Equal(
+            expected.Select(x => x.Count),
+            result.Select(x => x.ProductsCount));
     }
 
 
@@ -84,6 +77,14 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
     public void ClientsWithLongestProcessingOrdersOrderedByName()
     {
         var orders = fixture.Orders.ToList();
+        var expected = new[]
+        {
+            new { Name = "Иванов Иван Иванович", Average = 6.0 },
+            new { Name = "Кузнецов Алексей Владимирович", Average = 17.5 },
+            new { Name = "Петров Петр Петрович", Average = 6.5 },
+            new { Name = "Сидорова Анна Сергеевна", Average = 7.0 },
+            new { Name = "Смирнова Елена Андреевна", Average = 8.0 }
+        };
 
         var result = orders
             .GroupBy(order => order.Client)
@@ -96,16 +97,13 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .OrderBy(x => x.Client.Name)
             .ToList();
 
-        Assert.NotEmpty(result);
+        Assert.Equal(
+        expected.Select(x => x.Name),
+        result.Select(x => x.Client.Name));
 
-        for (var i = 1; i < result.Count; i++)
-        {
-            Assert.True(
-                string.Compare(
-                    result[i - 1].Client.Name,
-                    result[i].Client.Name,
-                    StringComparison.Ordinal) <= 0);
-        }
+        Assert.Equal(
+            expected.Select(x => x.Average),
+            result.Select(x => x.AverageProcessingDays));
     }
 
     /// <summary>
@@ -115,48 +113,66 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
     public void Top5MostAndLeastPopularCategoriesForLastYear()
     {
         var dateTo = new DateTime(2026, 9, 18);
-        var dateFrom = dateTo.AddYears(-1);
+        var dateFrom = new DateTime(2025, 1, 1);
 
         var orders = fixture.Orders.ToList();
+        var categories = fixture.Categories.ToList();
+        var expectedMostPopular = new[]
+        {
+            new { Name = "Верхняя одежда", Count = 4 },
+            new { Name = "Костюмы", Count = 3 },
+            new { Name = "Платья", Count = 1 },
+            new { Name = "Рубашки", Count = 1 },
+            new { Name = "Брюки", Count = 1 },
+        };
+        var expectedLeastPopular = new[]
+        {
+            new { Name = "Пальто", Count = 0 },
+            new { Name = "Куртки", Count = 0 },
+            new { Name = "Шторы", Count = 0 },
+            new { Name = "Одеяла", Count = 0 },
+            new { Name = "Обувь", Count = 0 }
+        };
 
-        var categories = orders
-            .Where(order =>
-                order.AcceptedAt >= dateFrom &&
-                order.AcceptedAt <= dateTo)
-            .GroupBy(order => order.Product.Category)
-            .Select(group => new
-            {
-                Category = group.Key,
-                ProductsCount = group.Count()
-            })
+        var result = categories
+            .GroupJoin(
+                orders.Where(order =>
+                    order.AcceptedAt >= dateFrom &&
+                    order.AcceptedAt <= dateTo),
+                category => category.Id,
+                order => order.Product.Category.Id,
+                (category, categoryOrders) => new
+                {
+                    Category = category,
+                    ProductsCount = categoryOrders.Count()
+                })
             .ToList();
 
-        var mostPopular = categories
+        var mostPopular = result
             .OrderByDescending(x => x.ProductsCount)
             .Take(5)
             .ToList();
 
-        var leastPopular = categories
+        var leastPopular = result
             .OrderBy(x => x.ProductsCount)
             .Take(5)
             .ToList();
 
-        Assert.Equal(5, mostPopular.Count);
-        Assert.Equal(5, leastPopular.Count);
+        Assert.Equal(
+            expectedMostPopular.Select(x => x.Name),
+            mostPopular.Select(x => x.Category.Name));
 
-        for (var i = 1; i < mostPopular.Count; i++)
-        {
-            Assert.True(
-                mostPopular[i - 1].ProductsCount >=
-                mostPopular[i].ProductsCount);
-        }
+        Assert.Equal(
+            expectedMostPopular.Select(x => x.Count),
+            mostPopular.Select(x => x.ProductsCount));
 
-        for (var i = 1; i < leastPopular.Count; i++)
-        {
-            Assert.True(
-                leastPopular[i - 1].ProductsCount <=
-                leastPopular[i].ProductsCount);
-        }
+        Assert.Equal(
+            expectedLeastPopular.Select(x => x.Name),
+            leastPopular.Select(x => x.Category.Name));
+
+        Assert.Equal(
+            expectedLeastPopular.Select(x => x.Count),
+            leastPopular.Select(x => x.ProductsCount));
     }
 
 
@@ -167,6 +183,7 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
     public void ClientWhoSpentTheMostMoney()
     {
         var orders = fixture.Orders.ToList();
+        var expected = new { Name = "Петров Петр Петрович", TotalSpent = 3000m };
 
         var result = orders
             .GroupBy(order => order.Client)
@@ -179,7 +196,12 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .OrderByDescending(x => x.TotalSpent)
             .First();
 
-        Assert.NotNull(result.Client);
-        Assert.True(result.TotalSpent > 0);
+        Assert.Equal(
+             expected.Name,
+             result.Client.Name);
+        Assert.Equal(
+             expected.TotalSpent,
+             result.TotalSpent);
+
     }
 }
