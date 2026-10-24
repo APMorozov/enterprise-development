@@ -14,4 +14,4 @@ namespace DryCleaner.Application.Contracts.Order;
 /// <param name="AcceptedAt">Время приема заказа</param>
 /// <param name="ProcessingDays">Срок выполнения в днях</param>
 /// <param name="Status">Статус заказа</param>
-public record OrderDTO(int Id, ClientDto Client, ProductDto Product, DateTime AcceptedAt, int ProcessingDays, OrderStatus Status);
+public record OrderDto(int Id, ClientDto Client, ProductDto Product, DateTime AcceptedAt, int ProcessingDays, OrderStatus Status);
