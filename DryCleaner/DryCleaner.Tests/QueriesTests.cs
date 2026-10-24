@@ -177,7 +177,7 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
 
 
     /// <summary>
-    /// Проверяет информацию полученную о клиенте потртившем самуб большую сумму за весь период работы сервиса
+    /// Проверяет информацию полученную о клиенте потратившем самую большую сумму за весь период работы сервиса
     /// </summary>
     [Fact]
     public void ClientWhoSpentTheMostMoney()
