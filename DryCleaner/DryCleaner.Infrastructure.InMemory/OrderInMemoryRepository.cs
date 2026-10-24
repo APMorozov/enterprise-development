@@ -44,7 +44,7 @@ public class OrderInMemoryRepository:IRepository<Order, int>
     /// </summary>
     /// <param name="entityId">Идентификатор заказа.</param>
     /// <returns>Задача, представляющая асинхронную операцию, результатом которой является объект Order или null.</returns>
-    public Task<Order?> Read(int entityId) => Task.FromResult(_orders.FirstOrDefault(o => o.Id == entityId));
+    public Task<Order?> Read(int entityId) => Task.FromResult(_orders.FirstOrDefault(o => .Id == entityId));
 
     /// <summary>
     /// Возвращает список всех заказов.
@@ -56,7 +56,7 @@ public class OrderInMemoryRepository:IRepository<Order, int>
     /// Обновляет данные заказа или создает нового, если заказ не найден.
     /// </summary>
     /// <param name="entity">Заказ с обновленными данными.</param>
-    /// <returns>Задача, представляющая обновленного или созданного заказа.</returns>
+    /// <returns>Задача, представляющая асинхронную операцию, результатом которой является обновленный или созданный заказ.</returns>
     public Task<Order> Update(Order entity)
     {
         var order = Read(entity.Id).Result;

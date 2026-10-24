@@ -56,7 +56,7 @@ public class ClientInMemoryRepository:IRepository<Client, int>
     /// Обновляет данные клиента или создает нового, если клиент не найден.
     /// </summary>
     /// <param name="entity">Клиент с обновленными данными.</param>
-    /// <returns>Задача, представляющая обновленного или созданного клиента.</returns>
+    /// <returns>Задача, представляющая асинхронную операцию, результатом которой является обновленный или созданный клиент.</returns>
     public Task<Client> Update(Client entity)
     {
         var client = Read(entity.Id).Result;
