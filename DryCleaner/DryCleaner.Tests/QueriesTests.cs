@@ -22,9 +22,7 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .OrderBy(order => order.AcceptedAt)
             .ToList();
 
-        Assert.Equal(
-        expectedIds,
-        result.Select(order => order.Id));
+        Assert.Equal(expectedIds, result.Select(order => order.Id));
     }
 
     /// <summary>
@@ -60,13 +58,9 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .Take(5)
             .ToList();
 
-        Assert.Equal(
-        expected.Select(x => x.Name),
-        result.Select(x => x.Client.Name));
+        Assert.Equal(expected.Select(x => x.Name), result.Select(x => x.Client.Name));
 
-        Assert.Equal(
-            expected.Select(x => x.Count),
-            result.Select(x => x.ProductsCount));
+        Assert.Equal(expected.Select(x => x.Count), result.Select(x => x.ProductsCount));
     }
 
 
@@ -97,13 +91,9 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .OrderBy(x => x.Client.Name)
             .ToList();
 
-        Assert.Equal(
-        expected.Select(x => x.Name),
-        result.Select(x => x.Client.Name));
+        Assert.Equal(expected.Select(x => x.Name), result.Select(x => x.Client.Name));
 
-        Assert.Equal(
-            expected.Select(x => x.Average),
-            result.Select(x => x.AverageProcessingDays));
+        Assert.Equal(expected.Select(x => x.Average), result.Select(x => x.AverageProcessingDays));
     }
 
     /// <summary>
@@ -158,21 +148,13 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .Take(5)
             .ToList();
 
-        Assert.Equal(
-            expectedMostPopular.Select(x => x.Name),
-            mostPopular.Select(x => x.Category.Name));
+        Assert.Equal(expectedMostPopular.Select(x => x.Name), mostPopular.Select(x => x.Category.Name));
 
-        Assert.Equal(
-            expectedMostPopular.Select(x => x.Count),
-            mostPopular.Select(x => x.ProductsCount));
+        Assert.Equal(expectedMostPopular.Select(x => x.Count), mostPopular.Select(x => x.ProductsCount));
 
-        Assert.Equal(
-            expectedLeastPopular.Select(x => x.Name),
-            leastPopular.Select(x => x.Category.Name));
+        Assert.Equal(expectedLeastPopular.Select(x => x.Name), leastPopular.Select(x => x.Category.Name));
 
-        Assert.Equal(
-            expectedLeastPopular.Select(x => x.Count),
-            leastPopular.Select(x => x.ProductsCount));
+        Assert.Equal(expectedLeastPopular.Select(x => x.Count), leastPopular.Select(x => x.ProductsCount));
     }
 
 
@@ -196,12 +178,8 @@ public class QueriesTests(QueriesTestsFixture fixture) : IClassFixture<QueriesTe
             .OrderByDescending(x => x.TotalSpent)
             .First();
 
-        Assert.Equal(
-             expected.Name,
-             result.Client.Name);
-        Assert.Equal(
-             expected.TotalSpent,
-             result.TotalSpent);
+        Assert.Equal(expected.Name, result.Client.Name);
+        Assert.Equal(expected.TotalSpent, result.TotalSpent);
 
     }
 }
