@@ -1,4 +1,5 @@
 ﻿using DryCleaner.Application.Contracts.Product;
+using DryCleaner.Application.Contracts.ProductCategory;
 using DryCleaner.Domain.Entities;
 
 namespace DryCleaner.Application.Mappers;
@@ -16,5 +17,15 @@ internal class ProductMapper
     public static ProductDto Map(Product entity)
     {
         return new(entity.Id, entity.Name, entity.Material, ProductCategoryMapper.Map(entity.Category));
+    }
+
+    public static IList<ProductDto> Map(IList<Product> entity)
+    {
+        return [.. entity.Select(Map)];
+    }
+
+    public static Product Map(ProductCreateUpdateDto dto, ProductCategory category)
+    {
+        return new Product { Id = 0, Name = dto.Name, Material = dto.Material, Category = category };
     }
 }
