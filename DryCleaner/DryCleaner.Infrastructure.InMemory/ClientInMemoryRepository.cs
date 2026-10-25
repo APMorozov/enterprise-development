@@ -9,8 +9,14 @@ namespace DryCleaner.Infrastructure.InMemory;
 /// </summary>
 public class ClientInMemoryRepository:IRepository<Client, int>
 {
+    /// <summary>
+    /// Список клиентов.
+    /// </summary>
     private readonly List<Client> _clients = [];
 
+    /// <summary>
+    /// Последний сгенерированный идентификатор.
+    /// </summary>
     private int _lastId = 1;
 
 

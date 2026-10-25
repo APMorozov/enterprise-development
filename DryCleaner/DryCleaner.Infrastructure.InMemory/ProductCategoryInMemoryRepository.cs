@@ -9,7 +9,14 @@ namespace DryCleaner.Infrastructure.InMemory;
 /// </summary>
 public class ProductCategoryInMemoryRepository : IRepository<ProductCategory, int>
 {
+    /// <summary>
+    /// Список категорий продуктов.
+    /// </summary>
     private readonly List<ProductCategory> _productCategories = [];
+
+    /// <summary>
+    /// Последний сгенерированный идентификатор.
+    /// </summary>
     private int _lastId = 1;
 
     /// <summary>
