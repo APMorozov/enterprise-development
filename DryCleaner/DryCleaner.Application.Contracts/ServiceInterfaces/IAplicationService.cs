@@ -27,7 +27,7 @@ public interface IAplicationService<TDto, TCreateUpdateDto, Tkey>
     /// Возвращает все объекты в виде DTO.
     /// </summary>
     /// <returns>Задача, представляющая асинхронную операцию, результатом которой является DTO.</returns>
-    public Task<TDto> GetAll();
+    public Task<IList<TDto>> GetAll();
 
     /// <summary>
     /// Обновляет сущность по идентификору и возвращает обновлённый объект DTO.
