@@ -13,6 +13,7 @@ public interface IAplicationService<TDto, TCreateUpdateDto, Tkey>
 
     public Task<TDto> Get(Tkey id);
 
+
     public Task<TDto> GetAll();
 
     public Task<TDto> Update(TCreateUpdateDto dto, Tkey id);
