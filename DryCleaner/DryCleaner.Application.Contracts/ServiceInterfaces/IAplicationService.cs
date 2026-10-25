@@ -21,7 +21,7 @@ public interface IAplicationService<TDto, TCreateUpdateDto, Tkey>
     /// </summary>
     /// <param name="id">Идентификатор объекта для получения.</param>
     /// <returns>Задача, представляющая асинхронную операцию, результатом которой является объект DTO.</returns>
-    public Task<TDto> Get(Tkey id);
+    public Task<TDto?> Get(Tkey id);
 
     /// <summary>
     /// Возвращает все объекты в виде DTO.
