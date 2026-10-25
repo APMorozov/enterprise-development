@@ -11,6 +11,9 @@ public class ClientInMemoryRepository:IRepository<Client, int>
 {
     private readonly List<Client> _clients = [];
 
+    private int _lastId = 1;
+
+
     /// <summary>
     /// Добавляет клиента в коллекцию и возвращает добавленный объект.
     /// </summary>
@@ -18,6 +21,7 @@ public class ClientInMemoryRepository:IRepository<Client, int>
     /// <returns>Задача, представляющая асинхронную операцию, с добавленным клиентом в качестве результата.</returns>
     public Task<Client> Create(Client entity)
     {
+        entity.Id = _lastId++;
         _clients.Add(entity);
         return Task.FromResult(entity);
     }

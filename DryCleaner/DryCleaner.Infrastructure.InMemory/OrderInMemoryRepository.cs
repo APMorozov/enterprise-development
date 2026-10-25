@@ -11,6 +11,8 @@ public class OrderInMemoryRepository:IRepository<Order, int>
 {
     private readonly List<Order> _orders = [];
 
+    private int _lastId = 1;
+
     /// <summary>
     /// Добавляет заказ в коллекцию и возвращает добавленный объект.
     /// </summary>
@@ -18,6 +20,7 @@ public class OrderInMemoryRepository:IRepository<Order, int>
     /// <returns>Задача, представляющая асинхронную операцию, с добавленным заказом в качестве результата.</returns>
     public Task<Order> Create(Order entity)
     {
+        entity.Id = _lastId++;
         _orders.Add(entity);
         return Task.FromResult(entity);
     }
