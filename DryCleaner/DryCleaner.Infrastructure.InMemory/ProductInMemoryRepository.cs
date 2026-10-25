@@ -10,6 +10,7 @@ namespace DryCleaner.Infrastructure.InMemory;
 public class ProductInMemoryRepository : IRepository<Product, int>
 {
     private readonly List<Product> _products = [];
+    private int _lastId = 1;
 
     /// <summary>
     /// Добавляет изделие в коллекцию и возвращает добавленный объект.
@@ -18,6 +19,7 @@ public class ProductInMemoryRepository : IRepository<Product, int>
     /// <returns>Задача, представляющая асинхронную операцию, с добавленным изделием в качестве результата.</returns>
     public Task<Product> Create(Product entity)
     {
+        entity.Id = _lastId++;
         _products.Add(entity);
         return Task.FromResult(entity);
     }
