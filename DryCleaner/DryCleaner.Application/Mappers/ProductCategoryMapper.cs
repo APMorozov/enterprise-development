@@ -1,7 +1,4 @@
-﻿using DryCleaner.Application.Contracts.Client;
-using DryCleaner.Application.Contracts.Order;
-using DryCleaner.Application.Contracts.Product;
-using DryCleaner.Application.Contracts.ProductCategory;
+﻿using DryCleaner.Application.Contracts.ProductCategory;
 using DryCleaner.Domain.Entities;
 
 namespace DryCleaner.Application.Mappers;
@@ -19,5 +16,15 @@ public static class ProductCategoryMapper
     public static ProductCategoryDto Map(ProductCategory entity)
     {
         return new(entity.Id, entity.Name, entity.RecommendedCleaningType, entity.CleaningPrice);
+    }
+
+    public static IList<ProductCategoryDto> Map(IList<ProductCategory> entity)
+    {
+        return [.. entity.Select(Map)];
+    }
+
+    public static ProductCategory Map(ProductCategoryCreateUpdateDto dto) 
+    {
+        return new() { Id = 0, Name = dto.Name, RecommendedCleaningType = dto.RecommendedCleaningType, CleaningPrice = dto.CleaningPrice };
     }
 }
