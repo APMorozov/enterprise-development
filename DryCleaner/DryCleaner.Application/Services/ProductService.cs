@@ -11,7 +11,7 @@ namespace DryCleaner.Application.Services;
 /// </summary>
 /// <param name="productRepository">Репозиторий для работы с изделиями.</param>
 /// <param name="productCategoryRepository">Репозиторий для работы с категориями изделий.</param>
-internal class ProductService(
+public class ProductService(
     IRepository<Product, int> productRepository,
     IRepository<ProductCategory, int> productCategoryRepository)
     : IProductService
