@@ -7,4 +7,4 @@
 /// <param name="Name">Название изделия</param>
 /// <param name="Material">Материал изделия</param>
 /// <param name="ProductCategoryId">Идентификатор категории изделия</param>
-public record ProductCreateUpdateDto(int Id, string Name, string Material, int ProductCategoryId);
+public record ProductCreateUpdateDto(string Name, string Material, int ProductCategoryId);
