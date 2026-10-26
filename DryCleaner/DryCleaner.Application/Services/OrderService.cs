@@ -31,7 +31,7 @@ public class OrderService(
 
         var product = await productRepository.Read(dto.ProductId);
         if (product == null)
-            throw new KeyNotFoundException($"Изделие с Id={dto.ClientId} не найдено");
+            throw new KeyNotFoundException($"Изделие с Id={dto.ProductId} не найдено");
 
         var order = OrderMapper.Map(dto, client, product);
 
