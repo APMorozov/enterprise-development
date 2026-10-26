@@ -3,7 +3,12 @@ using DryCleaner.Application.Contracts.Product;
 
 namespace DryCleaner.Api.Controllers;
 
-public abstract class ProductController(IProductService service, ILogger<ProductController> logger) :
+/// <summary>
+/// Контроллер для управления продуктами.
+/// </summary>
+/// <param name="service">Сервис для управления продуктами.</param>
+/// <param name="logger">Логгер для записи событий контроллера.</param>
+public class ProductController(IProductService service, ILogger<ProductController> logger) :
     CrudControllerBase<ProductDto, ProductCreateUpdateDto, int>(service, logger)
 {
 
