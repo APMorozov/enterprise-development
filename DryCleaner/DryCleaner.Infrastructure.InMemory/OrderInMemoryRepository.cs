@@ -53,7 +53,7 @@ public class OrderInMemoryRepository:IRepository<Order, int>
     /// </summary>
     /// <param name="entityId">Идентификатор заказа.</param>
     /// <returns>Задача, представляющая асинхронную операцию, результатом которой является объект Order или null.</returns>
-    public Task<Order?> Read(int entityId) => Task.FromResult(_orders.FirstOrDefault(o => .Id == entityId));
+    public Task<Order?> Read(int entityId) => Task.FromResult(_orders.FirstOrDefault(o => o.Id == entityId));
 
     /// <summary>
     /// Возвращает список всех заказов.
