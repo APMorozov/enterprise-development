@@ -1,17 +1,31 @@
+using DryCleaner.Application.Services;
+using DryCleaner.Application.Contracts.ServiceInterfaces;
+using DryCleaner.Domain.Entities;
+using DryCleaner.Domain.Interfaces;
+using DryCleaner.Infrastructure.InMemory;
+using Scalar.AspNetCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddSingleton<IRepository<ProductCategory, int>, ProductCategoryInMemoryRepository>();
+builder.Services.AddSingleton<IRepository<Product, int>, ProductInMemoryRepository>();
+builder.Services.AddSingleton<IRepository<Client, int>, ClientInMemoryRepository>();
+builder.Services.AddSingleton<IRepository<Order, int>, OrderInMemoryRepository>();
+
+builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IClientService, ClientService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 builder.Services.AddControllers();
-// Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+    app.MapScalarApiReference();
 }
 
 app.UseHttpsRedirection();
