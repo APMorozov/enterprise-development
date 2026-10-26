@@ -60,7 +60,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
             var result = await aplicationService.GetAll();
             logger.LogInformation("{method} method of {Pcontroller} was called. Result: {result}",
                 nameof(GetAll), GetType().Name, result);
-            return Ok( result );
+            return Ok(result);
         }
         catch (Exception ex)
         {
@@ -97,7 +97,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
                 nameof(Create), GetType().Name, notFound.Message);
             return NotFound(notFound.Message);
         }
-        catch (Exception ex) 
+        catch (Exception ex)
         {
             logger.LogInformation("{method} method of {Pcontroller} was called with parameter: {dto}. Ended with an error: {errorText}",
                 nameof(Create), GetType().Name, dto, ex.Message);

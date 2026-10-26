@@ -1,5 +1,5 @@
-﻿using DryCleaner.Application.Contracts.ServiceInterfaces;
-using DryCleaner.Application.Contracts.ProductCategory;
+﻿using DryCleaner.Application.Contracts.ProductCategory;
+using DryCleaner.Application.Contracts.ServiceInterfaces;
 
 namespace DryCleaner.Api.Controllers;
 

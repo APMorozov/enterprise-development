@@ -1,5 +1,4 @@
 ﻿using DryCleaner.Application.Contracts.Product;
-using DryCleaner.Application.Contracts.ProductCategory;
 using DryCleaner.Domain.Entities;
 
 namespace DryCleaner.Application.Mappers;

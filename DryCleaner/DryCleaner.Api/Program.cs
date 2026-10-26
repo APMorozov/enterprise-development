@@ -1,5 +1,5 @@
-using DryCleaner.Application.Services;
 using DryCleaner.Application.Contracts.ServiceInterfaces;
+using DryCleaner.Application.Services;
 using DryCleaner.Domain.Entities;
 using DryCleaner.Domain.Interfaces;
 using DryCleaner.Infrastructure.InMemory;

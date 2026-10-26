@@ -1,5 +1,5 @@
-﻿using DryCleaner.Application.Contracts.ServiceInterfaces;
-using DryCleaner.Application.Contracts.Client;
+﻿using DryCleaner.Application.Contracts.Client;
+using DryCleaner.Application.Contracts.ServiceInterfaces;
 
 namespace DryCleaner.Api.Controllers;
 
@@ -8,7 +8,7 @@ namespace DryCleaner.Api.Controllers;
 /// </summary>
 /// <param name="service">Сервис для работы с клиентами.</param>
 /// <param name="logger">Логгер для записи событий контроллера.</param>
-public class ClientController(IClientService service, ILogger<ClientController> logger):
+public class ClientController(IClientService service, ILogger<ClientController> logger) :
     CrudControllerBase<ClientDto, ClientCreateUpdateDto, int>(service, logger)
 {
 

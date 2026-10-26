@@ -1,6 +1,6 @@
-﻿using DryCleaner.Domain.Interfaces;
+﻿using DryCleaner.Domain.Data;
 using DryCleaner.Domain.Entities;
-using DryCleaner.Domain.Data;
+using DryCleaner.Domain.Interfaces;
 
 
 namespace DryCleaner.Infrastructure.InMemory;
@@ -8,7 +8,7 @@ namespace DryCleaner.Infrastructure.InMemory;
 /// <summary>
 /// Репозиторий для управления данными заказов в оперативной памяти.
 /// </summary>
-public class OrderInMemoryRepository:IRepository<Order, int>
+public class OrderInMemoryRepository : IRepository<Order, int>
 {
     /// <summary>
     /// Список заказов.

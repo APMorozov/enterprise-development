@@ -1,5 +1,4 @@
-﻿using DryCleaner.Application.Contracts.Client;
-using DryCleaner.Application.Contracts.Order;
+﻿using DryCleaner.Application.Contracts.Order;
 using DryCleaner.Domain.Entities;
 
 namespace DryCleaner.Application.Mappers;
@@ -19,10 +18,10 @@ internal class OrderMapper
     {
         return new
             (
-            entity.Id, 
-            ClientMapper.Map(entity.Client), 
-            ProductMapper.Map(entity.Product), 
-            entity.AcceptedAt, entity.ProcessingDays, 
+            entity.Id,
+            ClientMapper.Map(entity.Client),
+            ProductMapper.Map(entity.Product),
+            entity.AcceptedAt, entity.ProcessingDays,
             entity.Status
             );
     }
@@ -46,14 +45,14 @@ internal class OrderMapper
     /// <returns>Новый экземпляр Order.</returns>
     public static Order Map(OrderCreateUpdateDto dto, Client client, Product product)
     {
-        return new Order 
-        { 
-            Id = 0, 
-            Client = client, 
-            Product = product, 
-            AcceptedAt = dto.AcceptedAt, 
-            ProcessingDays = dto.ProcessingDays, 
-            Status = dto.Status 
+        return new Order
+        {
+            Id = 0,
+            Client = client,
+            Product = product,
+            AcceptedAt = dto.AcceptedAt,
+            ProcessingDays = dto.ProcessingDays,
+            Status = dto.Status
         };
     }
 }
