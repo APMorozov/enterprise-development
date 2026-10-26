@@ -2,9 +2,9 @@ name: .NET Build and Test
 
 on:
   push:
-    branches: [ "lab1" ]
+    branches: [ "lab1", "lab2" ]
   pull_request:
-    branches: [ "lab1", "main" ]
+    branches: [ "lab1", "lab2", "main" ]
 
 
 jobs:
