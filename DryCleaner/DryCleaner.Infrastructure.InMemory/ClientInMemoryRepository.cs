@@ -1,5 +1,6 @@
 ﻿using DryCleaner.Domain.Interfaces;
 using DryCleaner.Domain.Entities;
+using DryCleaner.Domain.Data;
 
 
 namespace DryCleaner.Infrastructure.InMemory;
@@ -12,7 +13,7 @@ public class ClientInMemoryRepository:IRepository<Client, int>
     /// <summary>
     /// Список клиентов.
     /// </summary>
-    private readonly List<Client> _clients = [];
+    private readonly List<Client> _clients = DataSeed.Clients;
 
     /// <summary>
     /// Последний сгенерированный идентификатор.

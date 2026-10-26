@@ -1,5 +1,6 @@
 ﻿using DryCleaner.Domain.Interfaces;
 using DryCleaner.Domain.Entities;
+using DryCleaner.Domain.Data;
 
 
 namespace DryCleaner.Infrastructure.InMemory;
@@ -12,7 +13,7 @@ public class ProductCategoryInMemoryRepository : IRepository<ProductCategory, in
     /// <summary>
     /// Список категорий продуктов.
     /// </summary>
-    private readonly List<ProductCategory> _productCategories = [];
+    private readonly List<ProductCategory> _productCategories = DataSeed.Categories;
 
     /// <summary>
     /// Последний сгенерированный идентификатор.
