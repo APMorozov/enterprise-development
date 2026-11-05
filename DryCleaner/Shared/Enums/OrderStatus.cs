@@ -1,4 +1,4 @@
-namespace DryCleaner.Domain.Enums;
+namespace DryCleaner.Shared.Enums;
 
 /// <summary>
 /// Статусы заказа

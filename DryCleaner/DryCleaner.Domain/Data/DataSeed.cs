@@ -1,5 +1,5 @@
 using DryCleaner.Domain.Entities;
-using DryCleaner.Domain.Enums;
+using DryCleaner.Shared.Enums;
 
 namespace DryCleaner.Domain.Data;
 

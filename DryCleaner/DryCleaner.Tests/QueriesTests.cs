@@ -1,4 +1,4 @@
-﻿using DryCleaner.Domain.Enums;
+﻿using DryCleaner.Shared.Enums;
 
 namespace DryCleaner.Tests;
 

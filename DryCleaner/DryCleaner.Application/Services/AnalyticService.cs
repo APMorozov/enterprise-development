@@ -3,7 +3,7 @@ using DryCleaner.Application.Contracts.Order;
 using DryCleaner.Application.Contracts.ServiceInterfaces;
 using DryCleaner.Application.Mappers;
 using DryCleaner.Domain.Entities;
-using DryCleaner.Domain.Enums;
+using DryCleaner.Shared.Enums;
 using DryCleaner.Domain.Interfaces;
 
 namespace DryCleaner.Application.Services;

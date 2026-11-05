@@ -1,6 +1,6 @@
 ﻿using DryCleaner.Application.Contracts.Client;
 using DryCleaner.Application.Contracts.Product;
-using DryCleaner.Domain.Enums;
+using DryCleaner.Shared.Enums;
 
 
 namespace DryCleaner.Application.Contracts.Order;

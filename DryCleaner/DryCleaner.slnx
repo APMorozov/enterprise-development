@@ -5,4 +5,5 @@
   <Project Path="DryCleaner.Domain/DryCleaner.Domain.csproj" />
   <Project Path="DryCleaner.Infrastructure.InMemory/DryCleaner.Infrastructure.InMemory.csproj" Id="d5605efc-3c6f-4dcc-8afa-3c3300ecd263" />
   <Project Path="DryCleaner.Tests/DryCleaner.Tests.csproj" />
+  <Project Path="Shared/DryCleaner.Shared.csproj" Id="a2aa0df2-678a-45e0-a436-5916bd0912d1" />
 </Solution>
