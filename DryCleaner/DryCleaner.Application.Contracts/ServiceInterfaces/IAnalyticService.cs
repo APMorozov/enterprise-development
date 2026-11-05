@@ -28,17 +28,28 @@ public interface IAnalyticService
     /// <returns>Список клиентов со средним сроком выполнения заказов.</returns>
     public Task<IList<ClientAverageProcessingDaysDto>> GetClientsAverageProcessingDays();
 
+
     /// <summary>
-    /// Возвращает топ 5 самых и наименее популярных категорий изделий за период.
+    /// Возвращает 5 самых популярных категорий изделий за указанный период.
     /// </summary>
     /// <param name="dateFrom">Начало периода.</param>
     /// <param name="dateTo">Конец периода.</param>
-    /// <returns>Самые и наименее популярные категории с количеством заказов.</returns>
-    public Task<CategoriesPopularityDto> GetTop5MostAndLeastPopularCategories(DateTime dateFrom, DateTime dateTo);
+    /// <returns>Список самых популярных категорий</returns>
+    public Task<CategoriesPopularityDto> GetTop5MostPopularCategories(DateTime dateFrom, DateTime dateTo);
+
+
+    /// <summary>
+    /// Возвращает 5 самых не популярных категорий изделий за указанный период.
+    /// </summary>
+    /// <param name="dateFrom">Начало периода.</param>
+    /// <param name="dateTo">Конец периода.</param>
+    /// <returns>Список самых не популярных категорий</returns>
+    public Task<CategoriesPopularityDto> GetTop5LeastPopularCategories(DateTime dateFrom, DateTime dateTo);
+
 
     /// <summary>
     /// Возвращает клиента, потратившего самую большую сумму за весь период работы сервиса.
     /// </summary>
     /// <returns>Клиент с потраченной суммой или null, если заказов нет.</returns>
-    public Task<ClientTotalSpentDto?> GetClientWhoSpentTheMostMoney();
+    public Task<IList<ClientTotalSpentDto>> GetClientWhoSpentTheMostMoney();
 }

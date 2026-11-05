@@ -97,31 +97,62 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
         }
     }
 
+
     /// <summary>
-    /// Возвращает топ 5 самых и наименее популярных категорий изделий за период.
+    /// Возвращает 5 самых популярных категорий изделий за указанный период.
     /// </summary>
     /// <param name="dateFrom">Начало периода.</param>
     /// <param name="dateTo">Конец периода.</param>
-    /// <returns>Код состояния 200 и категории с количеством заказов; код состояния 500 в случае ошибки сервера.</returns>
-    [HttpGet("categories-popularity")]
+    /// <returns>Список самых популярных категорий</returns>
+    [HttpGet("categories-most-popularity")]
     [ProducesResponseType(200)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<CategoriesPopularityDto>> GetTop5MostAndLeastPopularCategories(DateTime dateFrom, DateTime dateTo)
+    public async Task<ActionResult<CategoriesPopularityDto>> GetTop5MostPopularCategories(DateTime dateFrom, DateTime dateTo)
     {
         logger.LogInformation("{method} method of {Pcontroller} is called with parameters: dateFrom={dateFrom}, dateTo={dateTo}.",
-            nameof(GetTop5MostAndLeastPopularCategories), GetType().Name, dateFrom, dateTo);
+            nameof(GetTop5MostPopularCategories), GetType().Name, dateFrom, dateTo);
 
         try
         {
-            var result = await service.GetTop5MostAndLeastPopularCategories(dateFrom, dateTo);
+            var result = await service.GetTop5MostPopularCategories(dateFrom, dateTo);
             logger.LogInformation("{method} method of {Pcontroller} was called with parameters: dateFrom={dateFrom}, dateTo={dateTo}. Result: {result}",
-                nameof(GetTop5MostAndLeastPopularCategories), GetType().Name, dateFrom, dateTo, result);
+                nameof(GetTop5MostPopularCategories), GetType().Name, dateFrom, dateTo, result);
             return Ok(result);
         }
         catch (Exception ex)
         {
             logger.LogInformation("{method} method of {Pcontroller} was called with parameters: dateFrom={dateFrom}, dateTo={dateTo}. Ended with an error: {errorText}",
-                nameof(GetTop5MostAndLeastPopularCategories), GetType().Name, dateFrom, dateTo, ex.Message);
+                nameof(GetTop5MostPopularCategories), GetType().Name, dateFrom, dateTo, ex.Message);
+            return StatusCode(500, $"{ex.Message}");
+        }
+    }
+
+
+    /// <summary>
+    /// Возвращает 5 самых не популярных категорий изделий за указанный период.
+    /// </summary>
+    /// <param name="dateFrom">Начало периода.</param>
+    /// <param name="dateTo">Конец периода.</param>
+    /// <returns>Список самых не популярных категорий</returns>
+    [HttpGet("categories-least-popularity")]
+    [ProducesResponseType(200)]
+    [ProducesResponseType(500)]
+    public async Task<ActionResult<CategoriesPopularityDto>> GetTop5LeastPopularCategories(DateTime dateFrom, DateTime dateTo)
+    {
+        logger.LogInformation("{method} method of {Pcontroller} is called with parameters: dateFrom={dateFrom}, dateTo={dateTo}.",
+            nameof(GetTop5LeastPopularCategories), GetType().Name, dateFrom, dateTo);
+
+        try
+        {
+            var result = await service.GetTop5LeastPopularCategories(dateFrom, dateTo);
+            logger.LogInformation("{method} method of {Pcontroller} was called with parameters: dateFrom={dateFrom}, dateTo={dateTo}. Result: {result}",
+                nameof(GetTop5LeastPopularCategories), GetType().Name, dateFrom, dateTo, result);
+            return Ok(result);
+        }
+        catch (Exception ex)
+        {
+            logger.LogInformation("{method} method of {Pcontroller} was called with parameters: dateFrom={dateFrom}, dateTo={dateTo}. Ended with an error: {errorText}",
+                nameof(GetTop5LeastPopularCategories), GetType().Name, dateFrom, dateTo, ex.Message);
             return StatusCode(500, $"{ex.Message}");
         }
     }
@@ -129,12 +160,12 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
     /// <summary>
     /// Возвращает клиента, потратившего самую большую сумму за весь период работы сервиса.
     /// </summary>
-    /// <returns>Код состояния 200 и клиент с потраченной суммой; 404, если заказов нет; 500 в случае ошибки сервера.</returns>
+    /// <returns>Код состояния 200 и клиент с потраченной суммой;Код состояния 200 и пустой массив, если заказов нет; 500 в случае ошибки сервера.</returns>
     [HttpGet("top-spending-client")]
     [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    public async Task<ActionResult<ClientTotalSpentDto>> GetClientWhoSpentTheMostMoney()
+    public async Task<ActionResult<IList<ClientTotalSpentDto>>> GetClientWhoSpentTheMostMoney()
     {
         logger.LogInformation("{method} method of {Pcontroller} is called.",
             nameof(GetClientWhoSpentTheMostMoney), GetType().Name);
@@ -144,7 +175,7 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
             var result = await service.GetClientWhoSpentTheMostMoney();
             logger.LogInformation("{method} method of {Pcontroller} was called. Result: {result}",
                 nameof(GetClientWhoSpentTheMostMoney), GetType().Name, result);
-            return result == null ? NotFound() : Ok(result);
+            return Ok(result);
         }
         catch (Exception ex)
         {

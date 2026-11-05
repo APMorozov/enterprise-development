@@ -80,45 +80,11 @@ public class AnalyticService(
     }
 
     /// <summary>
-    /// Возвращает топ 5 самых и наименее популярных категорий изделий за период.
+    /// Возвращает 5 самых популярных категорий изделий за указанный период.
     /// </summary>
     /// <param name="dateFrom">Начало периода.</param>
     /// <param name="dateTo">Конец периода.</param>
-    /// <returns>Самые и наименее популярные категории с количеством заказов.</returns>
-    public async Task<CategoriesPopularityDto> GetTop5MostAndLeastPopularCategories(DateTime dateFrom, DateTime dateTo)
-    {
-        var orders = await orderRepository.ReadAll();
-        var categories = await categoryRepository.ReadAll();
-
-        var result = categories
-            .GroupJoin(
-                orders.Where(order =>
-                    order.AcceptedAt >= dateFrom &&
-                    order.AcceptedAt <= dateTo),
-                category => category.Id,
-                order => order.Product.Category.Id,
-                (category, categoryOrders) => new
-                {
-                    Category = category,
-                    OrdersCount = categoryOrders.Count()
-                })
-            .ToList();
-
-        var mostPopular = result
-            .OrderByDescending(x => x.OrdersCount)
-            .Take(5)
-            .Select(x => AnalyticMapper.Map(x.Category, x.OrdersCount))
-            .ToList();
-
-        var leastPopular = result
-            .OrderBy(x => x.OrdersCount)
-            .Take(5)
-            .Select(x => AnalyticMapper.Map(x.Category, x.OrdersCount))
-            .ToList();
-
-        return new CategoriesPopularityDto(mostPopular, leastPopular);
-    }
-
+    /// <returns>Список самых популярных категорий</returns>
     public async Task<CategoriesPopularityDto> GetTop5MostPopularCategories(DateTime dateFrom, DateTime dateTo)
     {
         var orders = await orderRepository.ReadAll();
@@ -146,26 +112,65 @@ public class AnalyticService(
 
 
     /// <summary>
+    /// Возвращает 5 самых не популярных категорий изделий за указанный период.
+    /// </summary>
+    /// <param name="dateFrom">Начало периода.</param>
+    /// <param name="dateTo">Конец периода.</param>
+    /// <returns>Список самых не популярных категорий</returns>
+    public async Task<CategoriesPopularityDto> GetTop5LeastPopularCategories(DateTime dateFrom, DateTime dateTo)
+    {
+        var orders = await orderRepository.ReadAll();
+        var categories = await categoryRepository.ReadAll();
+
+        var result = categories
+            .GroupJoin(
+                orders.Where(order =>
+                    order.AcceptedAt >= dateFrom &&
+                    order.AcceptedAt <= dateTo),
+                category => category.Id,
+                order => order.Product.Category.Id,
+                (category, categoryOrders) => new
+                {
+                    Category = category,
+                    OrdersCount = categoryOrders.Count()
+                })
+            .OrderBy(x => x.OrdersCount)
+            .Take(5)
+            .Select(x => AnalyticMapper.Map(x.Category, x.OrdersCount))
+            .ToList();
+
+        return new CategoriesPopularityDto(result);
+    }
+
+
+    /// <summary>
     /// Возвращает клиента, потратившего самую большую сумму за весь период работы сервиса.
     /// </summary>
     /// <returns>Клиент с потраченной суммой или null, если заказов нет.</returns>
-    public async Task<ClientTotalSpentDto?> GetClientWhoSpentTheMostMoney()
+    public async Task<IList<ClientTotalSpentDto>> GetClientWhoSpentTheMostMoney()
     {
         var orders = await orderRepository.ReadAll();
 
-        var result = orders
+        var grouped = orders
             .GroupBy(order => order.Client.Id)
             .Select(group => new
             {
                 Client = group.First().Client,
-                TotalSpent = group.Sum(order => order.Product.Category.CleaningPrice)
+                TotalSpent = group.Sum(order =>
+                    order.Product.Category.CleaningPrice)
             })
-            .OrderByDescending(x => x.TotalSpent)
-            .FirstOrDefault();
+            .ToList();
 
-        if (result == null)
-            return null;
+        if (grouped.Count == 0)
+            return [];
 
-        return AnalyticMapper.Map(result.Client, result.TotalSpent);
+        var maxSpent = grouped.Max(x => x.TotalSpent);
+
+        var result = grouped
+            .Where(x => x.TotalSpent == maxSpent)
+            .Select(x => AnalyticMapper.Map(x.Client, x.TotalSpent))
+            .ToList();
+
+        return result;
     }
 }
