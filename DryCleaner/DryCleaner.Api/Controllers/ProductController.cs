@@ -9,8 +9,4 @@ namespace DryCleaner.Api.Controllers;
 /// <param name="service">Сервис для управления продуктами.</param>
 /// <param name="logger">Логгер для записи событий контроллера.</param>
 public class ProductController(IProductService service, ILogger<ProductController> logger) :
-    CrudControllerBase<ProductDto, ProductCreateUpdateDto, int>(service, logger)
-{
-
-
-}
+    CrudControllerBase<ProductDto, ProductCreateUpdateDto, int>(service, logger);
