@@ -5,6 +5,4 @@ namespace DryCleaner.Application.Contracts.ServiceInterfaces;
 /// <summary>
 /// Определяет контракт для работы с клиентом
 /// </summary>
-public interface IClientService : IAplicationService<ClientDto, ClientCreateUpdateDto, int>
-{
-}
+public interface IClientService : IAplicationService<ClientDto, ClientCreateUpdateDto, int>;
