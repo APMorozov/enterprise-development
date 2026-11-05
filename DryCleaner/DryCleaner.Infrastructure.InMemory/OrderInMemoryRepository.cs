@@ -18,7 +18,9 @@ public class OrderInMemoryRepository : IRepository<Order, int>
     /// <summary>
     /// Последний сгенерированный идентификатор.
     /// </summary>
-    private int _lastId = 1;
+    private int _lastId = DataSeed.Orders.Count > 0
+    ? DataSeed.Orders.Max(order => order.Id)
+    : 0;
 
     /// <summary>
     /// Добавляет заказ в коллекцию и возвращает добавленный объект.
@@ -27,7 +29,7 @@ public class OrderInMemoryRepository : IRepository<Order, int>
     /// <returns>Задача, представляющая асинхронную операцию, с добавленным заказом в качестве результата.</returns>
     public Task<Order> Create(Order entity)
     {
-        entity.Id = _lastId++;
+        entity.Id = ++_lastId;
         _orders.Add(entity);
         return Task.FromResult(entity);
     }

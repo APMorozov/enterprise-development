@@ -18,7 +18,9 @@ public class ClientInMemoryRepository : IRepository<Client, int>
     /// <summary>
     /// Последний сгенерированный идентификатор.
     /// </summary>
-    private int _lastId = 1;
+    private int _lastId = DataSeed.Clients.Count > 0
+    ? DataSeed.Clients.Max(client => client.Id)
+    : 0;
 
 
     /// <summary>
@@ -28,7 +30,7 @@ public class ClientInMemoryRepository : IRepository<Client, int>
     /// <returns>Задача, представляющая асинхронную операцию, с добавленным клиентом в качестве результата.</returns>
     public Task<Client> Create(Client entity)
     {
-        entity.Id = _lastId++;
+        entity.Id = ++_lastId;
         _clients.Add(entity);
         return Task.FromResult(entity);
     }

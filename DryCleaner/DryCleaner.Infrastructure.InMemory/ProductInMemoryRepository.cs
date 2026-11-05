@@ -18,7 +18,9 @@ public class ProductInMemoryRepository : IRepository<Product, int>
     /// <summary>
     /// Последний сгенерированный идентификатор.
     /// </summary>
-    private int _lastId = 1;
+    private int _lastId = DataSeed.Products.Count > 0
+    ? DataSeed.Products.Max(product => product.Id)
+    : 0;
 
     /// <summary>
     /// Добавляет изделие в коллекцию и возвращает добавленный объект.
@@ -27,7 +29,7 @@ public class ProductInMemoryRepository : IRepository<Product, int>
     /// <returns>Задача, представляющая асинхронную операцию, с добавленным изделием в качестве результата.</returns>
     public Task<Product> Create(Product entity)
     {
-        entity.Id = _lastId++;
+        entity.Id = ++_lastId;
         _products.Add(entity);
         return Task.FromResult(entity);
     }
