@@ -1,6 +1,6 @@
 ﻿using DryCleaner.Application.Contracts.Client;
 
-namespace DryCleaner.Application.Contracts.Analitic;
+namespace DryCleaner.Application.Contracts.Analytic;
 
 /// <summary>
 /// DTO для запроса среднего срока выполнения заказов клиента

@@ -1,4 +1,4 @@
-﻿using DryCleaner.Application.Contracts.Analitic;
+﻿using DryCleaner.Application.Contracts.Analytic;
 using DryCleaner.Application.Contracts.Order;
 using DryCleaner.Application.Contracts.ServiceInterfaces;
 using DryCleaner.Application.Mappers;
@@ -118,6 +118,32 @@ public class AnalyticService(
 
         return new CategoriesPopularityDto(mostPopular, leastPopular);
     }
+
+    public async Task<CategoriesPopularityDto> GetTop5MostPopularCategories(DateTime dateFrom, DateTime dateTo)
+    {
+        var orders = await orderRepository.ReadAll();
+        var categories = await categoryRepository.ReadAll();
+
+        var result = categories
+            .GroupJoin(
+                orders.Where(order =>
+                    order.AcceptedAt >= dateFrom &&
+                    order.AcceptedAt <= dateTo),
+                category => category.Id,
+                order => order.Product.Category.Id,
+                (category, categoryOrders) => new
+                {
+                    Category = category,
+                    OrdersCount = categoryOrders.Count()
+                })
+            .OrderByDescending(x => x.OrdersCount)
+            .Take(5)
+            .Select(x => AnalyticMapper.Map(x.Category, x.OrdersCount))
+            .ToList();
+
+        return new CategoriesPopularityDto(result);
+    }
+
 
     /// <summary>
     /// Возвращает клиента, потратившего самую большую сумму за весь период работы сервиса.

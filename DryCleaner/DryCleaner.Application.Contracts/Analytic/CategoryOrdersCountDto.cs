@@ -1,6 +1,6 @@
 ﻿using DryCleaner.Application.Contracts.ProductCategory;
 
-namespace DryCleaner.Application.Contracts.Analitic;
+namespace DryCleaner.Application.Contracts.Analytic;
 
 /// <summary>
 /// DTO для запроса популярности категорий изделий

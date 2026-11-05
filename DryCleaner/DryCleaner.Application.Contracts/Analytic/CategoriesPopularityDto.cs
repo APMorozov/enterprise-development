@@ -1,4 +1,4 @@
-﻿namespace DryCleaner.Application.Contracts.Analitic;
+﻿namespace DryCleaner.Application.Contracts.Analytic;
 
 /// <summary>
 /// DTO для запроса самых и наименее популярных категорий изделий

@@ -1,4 +1,4 @@
-﻿using DryCleaner.Application.Contracts.Analitic;
+﻿using DryCleaner.Application.Contracts.Analytic;
 using DryCleaner.Application.Contracts.Order;
 using DryCleaner.Application.Contracts.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
