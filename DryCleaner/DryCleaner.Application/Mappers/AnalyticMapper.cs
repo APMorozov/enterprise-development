@@ -6,7 +6,7 @@ namespace DryCleaner.Application.Mappers;
 /// <summary>
 /// Преобразует результаты аналитических запросов в соответствующие DTO.
 /// </summary>
-internal class AnaliticMapper
+internal class AnalyticMapper
 {
     /// <summary>
     /// Преобразует клиента и количество его заказов в объект ClientOrdersCountDto.

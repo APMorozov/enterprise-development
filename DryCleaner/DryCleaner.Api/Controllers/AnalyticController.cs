@@ -12,7 +12,7 @@ namespace DryCleaner.Api.Controllers;
 /// <param name="logger">Логгер для записи событий контроллера.</param>
 [Route("api/[controller]")]
 [ApiController]
-public class AnaliticController(IAnaliticService service, ILogger<AnaliticController> logger) : ControllerBase
+public class AnalyticController(IAnalyticService service, ILogger<AnalyticController> logger) : ControllerBase
 {
     /// <summary>
     /// Возвращает заказы, находящиеся в обработке, упорядоченные по дате приема.

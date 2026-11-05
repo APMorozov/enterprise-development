@@ -6,7 +6,7 @@ namespace DryCleaner.Application.Contracts.ServiceInterfaces;
 /// <summary>
 /// Определяет контракт для аналитических запросов к данным сервиса
 /// </summary>
-public interface IAnaliticService
+public interface IAnalyticService
 {
     /// <summary>
     /// Возвращает заказы, находящиеся в обработке, упорядоченные по дате приема.

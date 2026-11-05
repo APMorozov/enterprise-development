@@ -13,9 +13,9 @@ namespace DryCleaner.Application.Services;
 /// </summary>
 /// <param name="orderRepository">Репозиторий для работы с сущностями заказов.</param>
 /// <param name="categoryRepository">Репозиторий для работы с сущностями категорий изделий.</param>
-public class AnaliticService(
+public class AnalyticService(
     IRepository<Order, int> orderRepository,
-    IRepository<ProductCategory, int> categoryRepository) : IAnaliticService
+    IRepository<ProductCategory, int> categoryRepository) : IAnalyticService
 {
     /// <summary>
     /// Возвращает заказы, находящиеся в обработке, упорядоченные по дате приема.
@@ -55,7 +55,7 @@ public class AnaliticService(
             })
             .OrderByDescending(x => x.OrdersCount)
             .Take(5)
-            .Select(x => AnaliticMapper.Map(x.Client, x.OrdersCount))
+            .Select(x => AnalyticMapper.Map(x.Client, x.OrdersCount))
             .ToList();
     }
 
@@ -75,7 +75,7 @@ public class AnaliticService(
                 AverageProcessingDays = group.Average(order => order.ProcessingDays)
             })
             .OrderBy(x => x.Client.Name)
-            .Select(x => AnaliticMapper.Map(x.Client, x.AverageProcessingDays))
+            .Select(x => AnalyticMapper.Map(x.Client, x.AverageProcessingDays))
             .ToList();
     }
 
@@ -107,13 +107,13 @@ public class AnaliticService(
         var mostPopular = result
             .OrderByDescending(x => x.OrdersCount)
             .Take(5)
-            .Select(x => AnaliticMapper.Map(x.Category, x.OrdersCount))
+            .Select(x => AnalyticMapper.Map(x.Category, x.OrdersCount))
             .ToList();
 
         var leastPopular = result
             .OrderBy(x => x.OrdersCount)
             .Take(5)
-            .Select(x => AnaliticMapper.Map(x.Category, x.OrdersCount))
+            .Select(x => AnalyticMapper.Map(x.Category, x.OrdersCount))
             .ToList();
 
         return new CategoriesPopularityDto(mostPopular, leastPopular);
@@ -140,6 +140,6 @@ public class AnaliticService(
         if (result == null)
             return null;
 
-        return AnaliticMapper.Map(result.Client, result.TotalSpent);
+        return AnalyticMapper.Map(result.Client, result.TotalSpent);
     }
 }
