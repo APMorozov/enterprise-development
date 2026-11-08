@@ -57,13 +57,23 @@ public class ProductEfCoreRepository(DryCleanerDbContext context) : IRepository<
     /// <returns>
     /// Найденный товар или <see langword="null"/>, если товар не найден.
     /// </returns>
-    public async Task<Product?> Read(int entityId) => await context.Products.FirstOrDefaultAsync(product => product.Id == entityId);
+    public async Task<Product?> Read(int entityId)
+    {
+        return await context.Products
+            .Include(p => p.Category)
+            .FirstOrDefaultAsync(product => product.Id == entityId);
+    }
 
     /// <summary>
     /// Возвращает список всех товаров.
     /// </summary>
     /// <returns>Список всех товаров из базы данных.</returns>
-    public async Task<IList<Product>> ReadAll() => await context.Products.ToListAsync();
+    public async Task<IList<Product>> ReadAll()
+    {
+        return await context.Products
+            .Include(p => p.Category)
+            .ToListAsync();
+    }
 
     /// <summary>
     /// Обновляет данные существующего товара.

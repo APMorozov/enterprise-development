@@ -57,13 +57,24 @@ public class OrderEfCoreRepository(DryCleanerDbContext context) : IRepository<Or
     /// <returns>
     /// Найденный заказ или <see langword="null"/>, если заказ не найден.
     /// </returns>
-    public async Task<Order?> Read(int entityId) => await context.Orders.FirstOrDefaultAsync(order => order.Id == entityId);
+    public async Task<Order?> Read(int entityId)
+    {
+        return await context.Orders
+             .Include(o => o.Client)
+             .Include(o => o.Product).ThenInclude(p => p.Category)
+             .FirstOrDefaultAsync(order => order.Id == entityId);
+    }
 
     /// <summary>
     /// Возвращает список всех заказов.
     /// </summary>
     /// <returns>Список всех заказов из базы данных.</returns>
-    public async Task<IList<Order>> ReadAll() => await context.Orders.ToListAsync();
+    public async Task<IList<Order>> ReadAll()
+    {
+        return await context.Orders.Include(o => o.Client)
+            .Include(o => o.Product).ThenInclude(p => p.Category)
+            .ToListAsync();
+    }
 
     /// <summary>
     /// Обновляет данные существующего заказа.
