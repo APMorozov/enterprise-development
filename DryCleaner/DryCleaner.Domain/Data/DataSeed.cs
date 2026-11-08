@@ -1,3 +1,4 @@
+
 using DryCleaner.Domain.Entities;
 using DryCleaner.Shared.Enums;
 
@@ -180,13 +181,13 @@ public static class DataSeed
     ];
 
     public static List<Order> Orders { get; } =
-     [
-         new Order
+    [
+        new Order
         {
             Id = 1,
             Client = Clients[0],
             Product = Products[0],
-            AcceptedAt = new DateTime(2025, 1, 10),
+            AcceptedAt = new DateTime(2025, 1, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 5,
             Status = OrderStatus.Issued
         },
@@ -196,7 +197,7 @@ public static class DataSeed
             Id = 2,
             Client = Clients[0],
             Product = Products[1],
-            AcceptedAt = new DateTime(2025, 3, 10),
+            AcceptedAt = new DateTime(2025, 3, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 7,
             Status = OrderStatus.Issued
         },
@@ -206,7 +207,7 @@ public static class DataSeed
             Id = 3,
             Client = Clients[1],
             Product = Products[2],
-            AcceptedAt = new DateTime(2025, 6, 10),
+            AcceptedAt = new DateTime(2025, 6, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 3,
             Status = OrderStatus.Issued
         },
@@ -216,7 +217,7 @@ public static class DataSeed
             Id = 4,
             Client = Clients[1],
             Product = Products[3],
-            AcceptedAt = new DateTime(2025, 7, 25),
+            AcceptedAt = new DateTime(2025, 7, 25, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 10,
             Status = OrderStatus.InProgress
         },
@@ -226,7 +227,7 @@ public static class DataSeed
             Id = 5,
             Client = Clients[2],
             Product = Products[4],
-            AcceptedAt = new DateTime(2025, 8, 10),
+            AcceptedAt = new DateTime(2025, 8, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 6,
             Status = OrderStatus.Issued
         },
@@ -236,7 +237,7 @@ public static class DataSeed
             Id = 6,
             Client = Clients[2],
             Product = Products[5],
-            AcceptedAt = new DateTime(2025, 9, 10),
+            AcceptedAt = new DateTime(2025, 9, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 8,
             Status = OrderStatus.Issued
         },
@@ -246,7 +247,7 @@ public static class DataSeed
             Id = 7,
             Client = Clients[3],
             Product = Products[6],
-            AcceptedAt = new DateTime(2025, 10, 10),
+            AcceptedAt = new DateTime(2025, 10, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 15,
             Status = OrderStatus.Issued
         },
@@ -256,7 +257,7 @@ public static class DataSeed
             Id = 8,
             Client = Clients[3],
             Product = Products[7],
-            AcceptedAt = new DateTime(2025, 11, 10),
+            AcceptedAt = new DateTime(2025, 11, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 20,
             Status = OrderStatus.InProgress
         },
@@ -266,7 +267,7 @@ public static class DataSeed
             Id = 9,
             Client = Clients[4],
             Product = Products[8],
-            AcceptedAt = new DateTime(2025, 12, 10),
+            AcceptedAt = new DateTime(2025, 12, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 4,
             Status = OrderStatus.Issued
         },
@@ -276,9 +277,9 @@ public static class DataSeed
             Id = 10,
             Client = Clients[4],
             Product = Products[9],
-            AcceptedAt = new DateTime(2026, 5, 10),
+            AcceptedAt = new DateTime(2026, 5, 10, 0, 0, 0, DateTimeKind.Utc),
             ProcessingDays = 12,
             Status = OrderStatus.InProgress
         }
-     ];
+    ];
 }
