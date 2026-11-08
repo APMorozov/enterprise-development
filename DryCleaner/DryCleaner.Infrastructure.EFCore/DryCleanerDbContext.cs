@@ -9,7 +9,7 @@ namespace DryCleaner.Infrastructure.EFCore;
 /// Класс описывающий контекст базы данных.
 /// </summary>
 /// <param name="options">Настройки контекста базы данных</param>
-internal class DryCleanerDbContext(DbContextOptions options) : DbContext(options)
+public class DryCleanerDbContext(DbContextOptions options) : DbContext(options)
 {
     public DbSet<Client> Clients { get; set; }
 
