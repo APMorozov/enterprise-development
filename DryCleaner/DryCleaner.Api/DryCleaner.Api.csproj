@@ -15,7 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\DryCleaner.Application.Contracts\DryCleaner.Application.Contracts.csproj" />
     <ProjectReference Include="..\DryCleaner.Application\DryCleaner.Application.csproj" />
-    <ProjectReference Include="..\DryCleaner.Infrastructure.InMemory\DryCleaner.Infrastructure.InMemory.csproj" />
+    <ProjectReference Include="..\DryCleaner.Infrastructure.EFCore\DryCleaner.Infrastructure.EfCore.csproj" />
   </ItemGroup>
 
 </Project>

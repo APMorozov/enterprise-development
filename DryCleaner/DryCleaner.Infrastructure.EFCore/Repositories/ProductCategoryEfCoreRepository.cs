@@ -13,7 +13,7 @@ namespace DryCleaner.Infrastructure.EfCore.Repositories;
 /// <remarks>
 /// Использует <see cref="DryCleanerDbContext"/> для доступа к таблице категорий товаров.
 /// </remarks>
-public class ProductCategoryEfRepository(DryCleanerDbContext context) : IRepository<ProductCategory, int>
+public class ProductCategoryEfCoreRepository(DryCleanerDbContext context) : IRepository<ProductCategory, int>
 {
     /// <summary>
     /// Создаёт новую категорию товаров в базе данных.
