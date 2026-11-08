@@ -11,14 +11,32 @@ namespace DryCleaner.Infrastructure.EFCore;
 /// <param name="options">Настройки контекста базы данных</param>
 public class DryCleanerDbContext(DbContextOptions options) : DbContext(options)
 {
+
+    /// <summary>
+    /// Набор клиентов, хранящихся в базе данных.
+    /// </summary>
     public DbSet<Client> Clients { get; set; }
 
+    /// <summary>
+    /// Набор категорий товаров, хранящихся в базе данных.
+    /// </summary>
     public DbSet<ProductCategory> ProductCategories { get; set; }
 
+    /// <summary>
+    /// Набор товаров, хранящихся в базе данных.
+    /// </summary>
     public DbSet<Product> Products { get; set; }
 
+    /// <summary>
+    /// Набор заказов, хранящихся в базе данных.
+    /// </summary>
     public DbSet<Order> Orders { get; set; }
 
+    /// <summary>
+    /// Настраивает конфигурацию сущностей и их связей в модели базы данных,
+    /// а также добавляет начальные данные.
+    /// </summary>
+    /// <param name="modelBuilder">Строитель модели базы данных.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Client>(builder =>
