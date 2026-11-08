@@ -1,16 +1,21 @@
+using Scalar.AspNetCore;
+
 using DryCleaner.Application.Contracts.ServiceInterfaces;
 using DryCleaner.Application.Services;
 using DryCleaner.Domain.Entities;
 using DryCleaner.Domain.Interfaces;
-using DryCleaner.Infrastructure.InMemory;
-using Scalar.AspNetCore;
+using DryCleaner.Infrastructure.EfCore.Repositories;
+using DryCleaner.Infrastructure.EFCore;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddSingleton<IRepository<ProductCategory, int>, ProductCategoryInMemoryRepository>();
-builder.Services.AddSingleton<IRepository<Product, int>, ProductInMemoryRepository>();
-builder.Services.AddSingleton<IRepository<Client, int>, ClientInMemoryRepository>();
-builder.Services.AddSingleton<IRepository<Order, int>, OrderInMemoryRepository>();
+builder.AddNpgsqlDbContext<DryCleanerDbContext>("Postgres");
+
+builder.Services.AddScoped<IRepository<ProductCategory, int>, ProductCategoryEfCoreRepository>();
+builder.Services.AddScoped<IRepository<Product, int>, ProductEfCoreRepository>();
+builder.Services.AddScoped<IRepository<Client, int>, ClientEfCoreRepository>();
+builder.Services.AddScoped<IRepository<Order, int>, OrderEfCoreRepository>();
 
 builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
