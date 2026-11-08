@@ -22,7 +22,8 @@ public class ClientEfCoreRepository(DryCleanerDbContext context) : IRepository<C
     /// <returns>Добавленный экземпляр клиента.</returns>
     public async Task<Client> Create(Client entity)
     {
-       var result = await context.Clients.AddAsync(entity);
+        var result = await context.Clients.AddAsync(entity);
+        await context.SaveChangesAsync();
 
         return entity;
     }
@@ -37,13 +38,15 @@ public class ClientEfCoreRepository(DryCleanerDbContext context) : IRepository<C
     /// </returns>
     public async Task<bool> Delete(int entityId)
     {
-        var entity = await context.Clients.FirstOrDefaultAsync(context => context.Id == entityId);
+        var entity = await context.Clients
+            .FirstOrDefaultAsync(context => context.Id == entityId);
 
         if (entity == null) 
             return false;
 
         context.Clients.Remove(entity);
         await context.SaveChangesAsync();
+
         return true;
     }
 
