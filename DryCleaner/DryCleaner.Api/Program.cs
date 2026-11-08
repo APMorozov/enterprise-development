@@ -7,16 +7,17 @@ using DryCleaner.Domain.Interfaces;
 using DryCleaner.Infrastructure.EfCore.Repositories;
 using DryCleaner.Infrastructure.EFCore;
 using DryCleaner.ServiceDefaults;
+using Microsoft.EntityFrameworkCore;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.AddNpgsqlDbContext<DryCleanerDbContext>("Postgres");
 
-builder.Services.AddScoped<IRepository<ProductCategory, int>, ProductCategoryEfCoreRepository>();
-builder.Services.AddScoped<IRepository<Product, int>, ProductEfCoreRepository>();
-builder.Services.AddScoped<IRepository<Client, int>, ClientEfCoreRepository>();
-builder.Services.AddScoped<IRepository<Order, int>, OrderEfCoreRepository>();
+builder.Services.AddTransient<IRepository<ProductCategory, int>, ProductCategoryEfCoreRepository>();
+builder.Services.AddTransient<IRepository<Product, int>, ProductEfCoreRepository>();
+builder.Services.AddTransient<IRepository<Client, int>, ClientEfCoreRepository>();
+builder.Services.AddTransient<IRepository<Order, int>, OrderEfCoreRepository>();
 
 builder.Services.AddScoped<IProductCategoryService, ProductCategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
@@ -33,6 +34,11 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
     app.MapScalarApiReference();
+
+    using var scope = app.Services.CreateScope();
+
+    var context = scope.ServiceProvider.GetRequiredService<DryCleanerDbContext>();
+    context.Database.Migrate();
 }
 
 app.MapDefaultEndpoints();
