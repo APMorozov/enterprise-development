@@ -59,7 +59,13 @@ public class DryCleanerDbContext(DbContextOptions options) : DbContext(options)
 
             builder.HasKey(p => p.Id);
 
-            builder.HasData(DataSeed.Products);
+            builder.HasData(DataSeed.Products.Select(p => new
+            {
+                p.Id,
+                p.Name,
+                p.Material,
+                CategoryId = p.Category.Id
+            }));
         });
 
         modelBuilder.Entity<Order>(builder =>
@@ -74,7 +80,15 @@ public class DryCleanerDbContext(DbContextOptions options) : DbContext(options)
 
             builder.HasKey(o => o.Id);
 
-            builder.HasData(DataSeed.Orders);
+            builder.HasData(DataSeed.Orders.Select(o => new
+            {
+                o.Id,
+                ClientId = o.Client.Id,
+                ProductId = o.Product.Id,
+                o.AcceptedAt,
+                o.ProcessingDays,
+                o.Status
+            }));
         });
     }
 }
