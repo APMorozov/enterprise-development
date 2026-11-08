@@ -1,7 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
-
+﻿using DryCleaner.Domain.Data;
 using DryCleaner.Domain.Entities;
-using DryCleaner.Domain.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace DryCleaner.Infrastructure.EFCore;
 

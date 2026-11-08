@@ -1,5 +1,3 @@
-using Scalar.AspNetCore;
-
 using DryCleaner.Application.Contracts.ServiceInterfaces;
 using DryCleaner.Application.Services;
 using DryCleaner.Domain.Entities;
@@ -8,6 +6,7 @@ using DryCleaner.Infrastructure.EfCore.Repositories;
 using DryCleaner.Infrastructure.EFCore;
 using DryCleaner.ServiceDefaults;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 
 
 var builder = WebApplication.CreateBuilder(args);

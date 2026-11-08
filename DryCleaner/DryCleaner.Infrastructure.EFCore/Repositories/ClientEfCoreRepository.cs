@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using DryCleaner.Domain.Entities;
+﻿using DryCleaner.Domain.Entities;
 using DryCleaner.Domain.Interfaces;
 using DryCleaner.Infrastructure.EFCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace DryCleaner.Infrastructure.EfCore.Repositories;
 
@@ -41,7 +40,7 @@ public class ClientEfCoreRepository(DryCleanerDbContext context) : IRepository<C
         var entity = await context.Clients
             .FirstOrDefaultAsync(context => context.Id == entityId);
 
-        if (entity == null) 
+        if (entity == null)
             return false;
 
         context.Clients.Remove(entity);

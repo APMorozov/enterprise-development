@@ -9,6 +9,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="10.0.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.14">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Scalar.AspNetCore" Version="2.18.3" />
   </ItemGroup>
 
@@ -16,6 +20,7 @@
     <ProjectReference Include="..\DryCleaner.Application.Contracts\DryCleaner.Application.Contracts.csproj" />
     <ProjectReference Include="..\DryCleaner.Application\DryCleaner.Application.csproj" />
     <ProjectReference Include="..\DryCleaner.Infrastructure.EFCore\DryCleaner.Infrastructure.EfCore.csproj" />
+    <ProjectReference Include="..\DryCleaner.ServiceDefaults\DryCleaner.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

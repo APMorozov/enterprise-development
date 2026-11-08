@@ -1,8 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-using DryCleaner.Domain.Entities;
+﻿using DryCleaner.Domain.Entities;
 using DryCleaner.Domain.Interfaces;
 using DryCleaner.Infrastructure.EFCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace DryCleaner.Infrastructure.EfCore.Repositories;
 
