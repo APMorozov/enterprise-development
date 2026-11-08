@@ -6,6 +6,7 @@ using DryCleaner.Domain.Entities;
 using DryCleaner.Domain.Interfaces;
 using DryCleaner.Infrastructure.EfCore.Repositories;
 using DryCleaner.Infrastructure.EFCore;
+using DryCleaner.ServiceDefaults;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -33,6 +34,8 @@ if (app.Environment.IsDevelopment())
     app.MapOpenApi();
     app.MapScalarApiReference();
 }
+
+app.MapDefaultEndpoints();
 
 app.UseHttpsRedirection();
 
