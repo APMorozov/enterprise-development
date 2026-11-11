@@ -1,13 +1,14 @@
+using DryCleaner.Api;
 using DryCleaner.Application.Contracts.ServiceInterfaces;
 using DryCleaner.Application.Services;
 using DryCleaner.Domain.Entities;
-using Scalar.AspNetCore;
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-
 using DryCleaner.Domain.Interfaces;
 using DryCleaner.Infrastructure.InMemory;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,7 +24,11 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAnalyticService, AnalyticService>();
 
 builder.Services.AddControllers();
-builder.Services.AddOpenApi();
+
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<BearerSecurityTransformer>();
+});
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
