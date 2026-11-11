@@ -2,6 +2,7 @@
 using DryCleaner.Application.Contracts.Order;
 using DryCleaner.Application.Contracts.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DryCleaner.Api.Controllers;
 
@@ -12,6 +13,7 @@ namespace DryCleaner.Api.Controllers;
 /// <param name="logger">Логгер для записи событий контроллера.</param>
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public class AnalyticController(IAnalyticService service, ILogger<AnalyticController> logger) : ControllerBase
 {
     /// <summary>
@@ -20,6 +22,8 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
     /// <returns>Код состояния 200 и список заказов; код состояния 500 в случае ошибки сервера.</returns>
     [HttpGet("in-progress-orders")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<IList<OrderDto>>> GetInProgressOrders()
     {
@@ -49,6 +53,8 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
     /// <returns>Код состояния 200 и список клиентов с количеством заказов; код состояния 500 в случае ошибки сервера.</returns>
     [HttpGet("top-active-clients")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<IList<ClientOrdersCountDto>>> GetTop5MostActiveClients(DateTime dateFrom, DateTime dateTo)
     {
@@ -76,6 +82,8 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
     /// <returns>Код состояния 200 и список клиентов со средним сроком выполнения заказов; код состояния 500 в случае ошибки сервера.</returns>
     [HttpGet("clients-average-processing-days")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<IList<ClientAverageProcessingDaysDto>>> GetClientsAverageProcessingDays()
     {
@@ -106,6 +114,8 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
     /// <returns>Список самых популярных категорий</returns>
     [HttpGet("categories-most-popularity")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<CategoriesPopularityDto>> GetTop5MostPopularCategories(DateTime dateFrom, DateTime dateTo)
     {
@@ -136,6 +146,8 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
     /// <returns>Список самых не популярных категорий</returns>
     [HttpGet("categories-least-popularity")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<CategoriesPopularityDto>> GetTop5LeastPopularCategories(DateTime dateFrom, DateTime dateTo)
     {
@@ -163,6 +175,8 @@ public class AnalyticController(IAnalyticService service, ILogger<AnalyticContro
     /// <returns>Код состояния 200 и клиент с потраченной суммой;Код состояния 200 и пустой массив, если заказов нет; 500 в случае ошибки сервера.</returns>
     [HttpGet("top-spending-client")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<IList<ClientTotalSpentDto>>> GetClientWhoSpentTheMostMoney()

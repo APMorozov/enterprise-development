@@ -1,5 +1,6 @@
 ﻿using DryCleaner.Application.Contracts.ServiceInterfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace DryCleaner.Api.Controllers;
 
@@ -13,6 +14,7 @@ namespace DryCleaner.Api.Controllers;
 /// <param name="logger">Экземпляр логгера для записи информации о выполнении операций.</param>
 [Route("api/[controller]")]
 [ApiController]
+[Authorize]
 public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     IAplicationService<TDto, TCreateUpdateDto, TKey> aplicationService,
     ILogger<CrudControllerBase<TDto, TCreateUpdateDto, TKey>> logger) : ControllerBase
@@ -24,6 +26,8 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     /// <returns>Результат действия с DTO, если найден; NotFound, если не найден; или код ошибки при исключении.</returns>
     [HttpGet("{id}")]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<TDto>> Get(TKey id)
@@ -49,6 +53,8 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     /// <returns>Код состояния 200 и список объектов DTO при успешном выполнении; код состояния 500 в случае ошибки сервера.</returns>
     [HttpGet]
     [ProducesResponseType(200)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<IList<TDto>>> GetAll()
     {
@@ -77,6 +83,8 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     /// <returns>Результат создания ресурса с кодом состояния HTTP 201 при успехе или соответствующим кодом ошибки.</returns>
     [HttpPost]
     [ProducesResponseType(201)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
     public async Task<ActionResult<TDto>> Create(TCreateUpdateDto dto)
     {
@@ -114,7 +122,10 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     /// <returns>Результат действия с обновлённым объектом или код ошибки.</returns>
     [HttpPut("{id}")]
     [ProducesResponseType(201)]
+    [ProducesResponseType(401)]
+    [ProducesResponseType(403)]
     [ProducesResponseType(500)]
+    [Authorize]
     public async Task<ActionResult<TDto>> Update(TCreateUpdateDto dto, TKey id)
     {
         logger.LogInformation("{method} method of {Pcontroller} is called with parameter: id={id}, {dto}.",
@@ -152,6 +163,7 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     [ProducesResponseType(201)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
+    [Authorize]
     public async Task<IActionResult> Delete(TKey id)
     {
         logger.LogInformation("{method} method of {Pcontroller} is called with parameter: id={id}.",
