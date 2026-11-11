@@ -1,6 +1,6 @@
 ﻿using DryCleaner.Application.Contracts.ServiceInterfaces;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DryCleaner.Api.Controllers;
 
