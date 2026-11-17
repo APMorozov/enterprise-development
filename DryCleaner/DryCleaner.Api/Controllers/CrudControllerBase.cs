@@ -125,7 +125,6 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     [ProducesResponseType(401)]
     [ProducesResponseType(403)]
     [ProducesResponseType(500)]
-    [Authorize]
     public async Task<ActionResult<TDto>> Update(TCreateUpdateDto dto, TKey id)
     {
         logger.LogInformation("{method} method of {Pcontroller} is called with parameter: id={id}, {dto}.",
@@ -160,10 +159,9 @@ public abstract class CrudControllerBase<TDto, TCreateUpdateDto, TKey>(
     /// <param name="id">Идентификатор удаляемой сущности.</param>
     /// <returns>Код состояния 200 (Ok) при успешном удалении; 404, если сущность не найдена; 500 при ошибке сервера.</returns>
     [HttpDelete("{id}")]
-    [ProducesResponseType(201)]
+    [ProducesResponseType(200)]
     [ProducesResponseType(404)]
     [ProducesResponseType(500)]
-    [Authorize]
     public async Task<IActionResult> Delete(TKey id)
     {
         logger.LogInformation("{method} method of {Pcontroller} is called with parameter: id={id}.",
