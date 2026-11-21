@@ -13,7 +13,7 @@ public class OrderInMemoryRepository : IRepository<Order, int>
     /// <summary>
     /// Список заказов.
     /// </summary>
-    private readonly List<Order> _orders = DataSeed.Orders;
+    private readonly List<Order> _orders = [.. DataSeed.Orders];
 
     /// <summary>
     /// Последний сгенерированный идентификатор.

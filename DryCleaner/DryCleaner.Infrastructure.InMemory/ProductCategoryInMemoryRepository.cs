@@ -13,7 +13,7 @@ public class ProductCategoryInMemoryRepository : IRepository<ProductCategory, in
     /// <summary>
     /// Список категорий продуктов.
     /// </summary>
-    private readonly List<ProductCategory> _productCategories = DataSeed.Categories;
+    private readonly List<ProductCategory> _productCategories = [.. DataSeed.Categories];
 
     /// <summary>
     /// Последний сгенерированный идентификатор.

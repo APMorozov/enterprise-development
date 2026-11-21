@@ -13,7 +13,7 @@ public class ClientInMemoryRepository : IRepository<Client, int>
     /// <summary>
     /// Список клиентов.
     /// </summary>
-    private readonly List<Client> _clients = DataSeed.Clients;
+    private readonly List<Client> _clients = [.. DataSeed.Clients];
 
     /// <summary>
     /// Последний сгенерированный идентификатор.

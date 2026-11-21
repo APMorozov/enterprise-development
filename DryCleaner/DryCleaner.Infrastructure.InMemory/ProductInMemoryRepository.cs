@@ -13,7 +13,7 @@ public class ProductInMemoryRepository : IRepository<Product, int>
     /// <summary>
     /// Список продуктов.
     /// </summary>
-    private readonly List<Product> _products = DataSeed.Products;
+    private readonly List<Product> _products = [.. DataSeed.Products];
 
     /// <summary>
     /// Последний сгенерированный идентификатор.
